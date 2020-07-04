@@ -167,7 +167,7 @@ def getMove(moves, message='pls tell the move you would like to make : '):
 
 
 
-def getColRow(Board,message = 'pls tell the column and row in the format "col row" : '):
+def getColRow(Board, message='pls tell the column and row in the format "col row" : '):
 
 # 	the func will ask user to input col and row number but if it is out of bound it will keep on askingfor it
 
@@ -220,7 +220,7 @@ def convertValToSym(val):
 # 	@param val is an int ranging from -1 to 1
 # 	@return string ranging from #,_,@
 
-	return ['-', '@', '#'][val] if val in [-1, 0, 1] else None
+	return ['_', '@', '#'][val]
 
 
 
@@ -234,7 +234,7 @@ def readValidBoardValue(message = 'pls fill in the board type : '):
 
 	value = input(message)
 
-	if value not in ['1','2','3','4'] and value not in ['cross', 'circle', 'triangle', 'simple_T', 'simple T']:
+	if value not in ['1', '2', '3', '4'] + ['cross', 'circle', 'triangle', 'simple_T', 'simple T']:
 	    return readValidBoardValue(message='the value you filled was out of bound')
 	return value
 
@@ -247,7 +247,7 @@ def makeBoard(type):
 # 	 '0' represents an empty space
 # 	'-1' represents a non play-able space
 
-	if type == '1' or type == 'cross':
+	if type in ['1', 'cross']:
 		return [
 			[-1,-1,-1, 1, 1, 1,-1,-1,-1],
 			[-1,-1,-1, 1, 1, 1,-1,-1,-1],
@@ -257,7 +257,7 @@ def makeBoard(type):
 			[-1,-1,-1, 1, 1, 1,-1,-1,-1],
 			[-1,-1,-1, 1, 1, 1,-1,-1,-1]
 		]
-	elif type == '2' or type == 'circle':
+	elif type in ['2', 'circle']:
 		return [
 			[-1, 0, 1, 1, 0,-1],
 			[ 0, 1, 1, 1, 1, 0],
@@ -267,7 +267,7 @@ def makeBoard(type):
 			[-1, 0, 1, 1, 0,-1]
 		]
 
-	elif type == '3' or type == 'tiangle':
+	elif type in ['3', 'tiangle']:
 		return [
 			[-1,-1,-1, 0, 1, 0,-1,-1,-1],
 			[-1,-1, 0, 1, 1, 1, 0,-1,-1],
@@ -275,7 +275,7 @@ def makeBoard(type):
 			[ 0, 1, 1, 1, 1, 1, 1, 1, 0]
 		]
 
-	elif type == '4' or type in ['simple_T', 'simple T']:
+	elif type in ['4', 'simple_T', 'simple T']:
 		return [
 			[ 0, 0, 0, 0, 0],
 			[ 0, 1, 1, 1, 0],
