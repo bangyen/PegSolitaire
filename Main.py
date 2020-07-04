@@ -23,8 +23,9 @@ def main():
 
 	Board = makeBoard(boardvalue)
 	printBoard(Board)
-
-	while not gamewon(Board) or noMovesleft(Board):
+        
+	gameon = True
+	while gameon:
 
 		col,row = getColRow(Board)
 		print(' \n' + f'choose a column : {col}')
@@ -35,12 +36,14 @@ def main():
 
 		Board = UpdateBoard(row - 1, col - 1, Board, getMove(moves), moves, locations)
 		printBoard(Board)
+		
+		if gamewon(Board) or noMovesleft(Board):
+			gameon = False
 
 	if gamewon():
 		print('you won the game')
 	elif noMovesleft(Board) and not gamewon(Board):
 		print('you lost the game')
-
 
 
 def UpdateBoard(row, col, Board, moveToTake, moves, locations):
