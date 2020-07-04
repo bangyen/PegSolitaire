@@ -88,7 +88,7 @@ def noMovesleft(Board):
 
 	movesleft = 0
 	for i in range(len(Board)):
-		for j in range(len(Board[0]):
+		for j in range(len(Board[0])):
 			if Board[i][j] == 1:
 				moves = checkNeighbours(i, j, Board)[0]
 				movesleft += len(moves)
@@ -243,7 +243,7 @@ def makeBoard(type):
 # 	 '0' represents an empty space
 # 	'-1' represents a non play-able space
 	
-	if type == 1 or type == 'cross:
+	if type == 1 or type == 'cross':
 		return [
 			[-1,-1,-1, 1, 1, 1,-1,-1,-1],
 			[-1,-1,-1, 1, 1, 1,-1,-1,-1],
