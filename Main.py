@@ -84,7 +84,7 @@ def gamewon(Board):
 	for row in Board:
 		count += row.count(1)
 	
-	return count == 1:
+	return count == 1
 	
 
 
