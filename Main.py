@@ -1,7 +1,7 @@
 def main():
 	
 
-	// handle the game
+	# handle the game
 
 	
 	print("""
@@ -43,25 +43,23 @@ def main():
 		
 		
 		
-def UpdateBoard(row,col,Board,moveToTake,locations):
-	/*
-	the func will take the move choosen by user on the board and update it
+def UpdateBoard(row, col, Board, moveToTake,locations):
+# 	the func will take the move choosen by user on the board and update it
 	
-	@param Board: the board on which move has to be taken
-	@param move: the direction in which peg would move
-	*/
+# 	@param Board: the board on which move has to be taken
+# 	@param move: the direction in which peg would move
 	
 	newBoard = Board
 	
-	dict = {
-		'up' = 0,
-		'down' = 1,
-		'left' = 2,
-		'right' = 3
+	move_dict = {
+		'up': 0,
+		'down': 1,
+		'left': 2,
+		'right': 3
 	}
 	
-	locToMove = locations[dict[moveToTake]]['tomove']
-	locRemove = locations[dict[moveToTake]]['remove']
+	locToMove = locations[move_dict[moveToTake]]['tomove']
+	locRemove = locations[move_dict[moveToTake]]['remove']
 	
 	newBoard[locToMove[0]][locToMove[1]] = 1
 	newBoard[locRemove[0]][locRemove[1]] = 0
@@ -71,94 +69,83 @@ def UpdateBoard(row,col,Board,moveToTake,locations):
 	
 	
 def gamewon(Board):
-	/*
-	func would tell if we won the the game by using the criteria that 
-	only one peg is left on the board 
+# 	func would tell if we won the the game by using the criteria that 
+# 	only one peg is left on the board 
 	
-	@param Board: the board on which we are checking the pegs
-	@return bollean: true or false depending on game won or not
-	*/
+# 	@param Board: the board on which we are checking the pegs
+# 	@return bollean: true or false depending on game won or not
 	
-	count = 0
-	
-	for row in Board:
-		count += row.count(1)
-	
-	return count == 1
+	return sum(row.count(1) for row in Board) == 1
 	
 
 
 def noMovesleft(Board):
 	
-	/*
-	func tells if there is any move left
+# 	func tells if there is any move left
 	
-	@param board: the board for which we will check moves
-	@return bollean: true or false depending on moves are left or not
-	*/
+# 	@param board: the board for which we will check moves
+# 	@return bollean: true or false depending on moves are left or not
 
 	movesleft = 0
 	for i in range(len(Board)):
 		for j in range(len(Board[0]):
 			if Board[i][j] == 1:
-				moves = checkNeighbours(i,j,Board)[0]
-				movesleft+=len(moves)
+				moves = checkNeighbours(i, j, Board)[0]
+				movesleft += len(moves)
 	return movesleft <= 0
 		
 			
 
 def checkNeighbours(col,row,Board):
 	
-	/*
-	check for pegs around the specific peg with given col and row on a board
+# 	check for pegs around the specific peg with given col and row on a board
 	
-	@param col: the column of the peg
-	@param row: the row of the peg
-	@param board:the board on which the pegs are
-	@return list of Neighbours around the specific peg
-	*/
+# 	@param col: the column of the peg
+# 	@param row: the row of the peg
+# 	@param board:the board on which the pegs are
+# 	@return list of Neighbours around the specific peg
 	
 	moves = []
 	locations = []
 	
-	//check up
+	# check up
 	uprow = row - 1
 	upcol = col
 	
 	if inbound(uprow,upcol,Board) and inbound(uprow - 1,upcol,Board):
 		if Board[uprow][upcol] == 1 and Board[uprow - 1][upcol] == 0:
 			moves.append('up')
-			locations.append({'moveto' : [uprow-1,upcol], 'remove' : [uprow,upcol]})
+			locations.append({'moveto': [uprow-1,upcol], 'remove': [uprow,upcol]})
 		
 	
-	//check down
+	# check down
 	downrow = row + 1
 	downcol = col
 	
 	if inbound(downrow,downcol,Board) and inbound(downrow + 1,dowcol,Board):
 		if Board[downrow][downcol] == 1 and Board[downrow + 1][downcol] == 0:
 			moves.append('down')
-			location.append({'moveto' : [downrow + 1,downcol], 'remove' : [downrow,downcol]})
+			location.append({'moveto': [downrow + 1,downcol], 'remove': [downrow,downcol]})
 		          
 	
-	//check left
+	# check left
 	leftcol = col - 1
 	leftrow = row
 	
 	if inbound(leftrow, leftcol, Board) and inbound(leftrow, leftcol - 1, Board):
 		if Board[leftrow][leftcol] == 1 and Board[leftrow][leftcol - 1] == 0:
 			moves.append('left')
-			location.append({'moveto' : [leftrow, leftcol - 1], 'remove' : [leftrow, leftcol]})
+			location.append({'moveto': [leftrow, leftcol - 1], 'remove': [leftrow, leftcol]})
 		
 	
-	//check right
+	# check right
 	rightcol = col + 1
 	rightrow = row
 	
 	if inbound(rightrow, rightcol, Board) and inbound(rightrow, rightcol + 1, Board):
 		if Board[rightrow][rightcol] == 1 and Board[rightrow][rightcol + 1] == 0:
 			moves.append('right')
-			location.append({'moveto' : [rightrow, rightcol + 1], 'remove' : [rightrow, rightcol]})
+			location.append({'moveto': [rightrow, rightcol + 1], 'remove': [rightrow, rightcol]})
 	
 	
 	return moves, locations
@@ -177,8 +164,7 @@ def getMove(moves, message='pls tell the move you would like to make'):
 	value = input(message)
 	if value in range(1, len(moves)) or value in moves:
 		return value
-	else:
-		return getMove(moves,message = 'invalid input pls try again')
+	return getMove(moves, message='invalid input pls try again')
 		
 	
 		
@@ -196,8 +182,7 @@ def getColRow(Board,message = 'pls tell the column and row in the format "col ro
 	col, row = input(message).split(' ')
 	if row <= len(Board) and col <= len(board[0]):
 		return col, row
-	else:
-		return getColRow(Board, message='the values you filled were out of bound(format: col row)')
+	return getColRow(Board, message='the values you filled were out of bound(format: col row)')
 		
 	
 
@@ -286,8 +271,8 @@ def makeBoard(type):
 			[ 0, 1, 1, 1, 1, 1, 1, 1, 0]
 		]
 		
-	elif type == 4 or type == 'simple_T' or 'simple T':
-		return[
+	elif type == 4 or type in ['simple_T', 'simple T']:
+		return [
 			[ 0, 0, 0, 0, 0],
 			[ 0, 1, 1, 1, 0],
 			[ 0, 0, 1, 0, 0],
@@ -297,7 +282,4 @@ def makeBoard(type):
 	 	
 		
 def inbound(row,col,array):
-	if row >= 0 and row < len(array):
-		if col >= 0 and col < len(array[0]):
-			return True
-	return False				
+	return row in range(len(array)) and col in range(len(array[0]))
