@@ -174,7 +174,7 @@ def getColRow(Board,message = 'pls tell the column and row in the format "col ro
 
 	col, row = input(message).split(' ')
 	if int(row) <= len(Board) and int(col) <= len(Board[0]):
-		moves,locations = checkNeighbours(int(row),int(col),Board)
+		moves,locations = checkNeighbours(int(row)-1,int(col)-1,Board)
 		if len(moves) != 0:
 			return int(col), int(row)
 
